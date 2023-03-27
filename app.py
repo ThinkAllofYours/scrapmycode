@@ -45,17 +45,15 @@ def write_codes_to_file(output_file, code_data):
             f.write("\n-----\n\n")
 
 if __name__ == "__main__":
+    print("start the project")
     root_folder = input("Enter the root folder path: ")
-    gitignore_file = os.path.join(root_folder, ".gitignore")
-    
-    if os.path.exists(gitignore_file):
-        gitignore_lines = read_gitignore(gitignore_file)
-        gitignore_spec = pathspec.PathSpec.from_lines('gitwildmatch', gitignore_lines)
-    else:
-        print(f"No .gitignore file found at {gitignore_file}. Including all files.")
-        gitignore_spec = pathspec.PathSpec.from_lines('gitwildmatch', [])
+    # find gitignore in root folder not using input
+    gitignore_file = input("Enter the .gitignore file path: ")
+    output_file = 'output.md'
 
-    output_file = 'output.txt'
+    gitignore_lines = read_gitignore(gitignore_file)
+    gitignore_spec = pathspec.PathSpec.from_lines('gitwildmatch', gitignore_lines)
+    
     file_list = get_all_files(root_folder, gitignore_spec)
 
     code_data = {}
@@ -66,3 +64,5 @@ if __name__ == "__main__":
             code_data[file_path] = code
 
     write_codes_to_file(output_file, code_data)
+    print("start the project")
+
